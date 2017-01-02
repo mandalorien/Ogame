@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         scannerActif
-// @namespace    8b0ef798a263ec53add8d477a9f69680
 // @include     https://code.jquery.com/jquery-3.1.1.min.js
 // @updateURL   https://openuserjs.org/src/libs/mandalorien/sniffer.js
 // @downloadURL https://openuserjs.org/src/libs/mandalorien/sniffer.js
-// @version      0.0.1
+// @version      0.0.2
 // @description  Permet de scanner la galaxy et de vérifier qui est actif
 // @author       Yoruichi
 // @match        https://*.ogame.gameforge.com/game/index.php?page=galaxy*
@@ -17,20 +16,21 @@
 var VersionReel = '0.0.2'; // Reel
 var Version = VersionReel.split('-')[0]; // MaJ
 var www = "";
+var scriptGo = false;
 
 $( document ).ready(function()
 {
 	function $_GET(param)
 	{
 		var vars = {};
-		window.location.href.replace( location.hash, '' ).replace( 
+		window.location.href.replace( location.hash, '' ).replace(
 			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
 		function( m, key, value ) { // callback
 			vars[key] = value !== undefined ? value : '';
 		}
 		);
 		if ( param ) {
-			return vars[param] ? vars[param] : null;	
+			return vars[param] ? vars[param] : null;
 		}
 		return vars;
 	}
@@ -98,7 +98,7 @@ $( document ).ready(function()
 					{
 						var maintenant = new Date();
 						activite = "il y a plus de 15 min";
-						var minuteLoop = parseInt(tr.children[1].children[0].children[1].innerText);
+						var minuteLoop = parseInt(tr.children[3].children[0].innerText);
 						time = maintenant.getTime() - (minuteLoop * 60 * 1000);
 						maintenant.setTime(time);
 						heure=maintenant.getHours();
@@ -172,7 +172,7 @@ $( document ).ready(function()
 		}
 	}
 
-    
+
     var bt_go = "<li>";
     bt_go += '<span class="menu_icon">';
     bt_go += '<a href="#" class="tooltipRight js_hideTipOnMobile " title="Lancer le script">';
@@ -273,5 +273,36 @@ $( document ).ready(function()
 
     setTimeout(function(){
             sniffer();
-        }, 1500);
+            var gala = parseInt($_GET('galaxy'));
+            var syst = parseInt($_GET('system')) + 1;
+
+            if(syst > 500)
+            {
+                syst = 1;
+                gala = parseInt(gala) + 1;
+            }
+            else if(syst < 1)
+            {
+                syst = 499;
+                gala = parseInt(gala) - 1;
+            }
+            else if(gala > 10)
+            {
+                syst = 1;
+                gala = 1;
+            }
+            else if(gala < 1)
+            {
+                syst = 499;
+                gala = 9;
+            }
+        if( gala !== undefined && gala !== syst){
+            window.location.href = 'https://s139-fr.ogame.gameforge.com/game/index.php?page=galaxy&galaxy='+gala+'&system='+syst+'';}
+        }, 999);
+});
+
+$("#tcheat").click(function()
+{
+    scriptGo = true;
+    window.location.href = 'https://s139-fr.ogame.gameforge.com/game/index.php?page=galaxy&galaxy=1&system=1';
 });
