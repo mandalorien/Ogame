@@ -4,7 +4,7 @@
 // @include     https://code.jquery.com/jquery-3.1.1.min.js
 // @updateURL   https://openuserjs.org/src/libs/mandalorien/sniffer.js
 // @downloadURL https://openuserjs.org/src/libs/mandalorien/sniffer.js
-// @version      0.0.2
+// @version      0.0.1
 // @description  Permet de scanner la galaxy et de vérifier qui est actif
 // @author       Yoruichi
 // @match        https://*.ogame.gameforge.com/game/index.php?page=galaxy*
