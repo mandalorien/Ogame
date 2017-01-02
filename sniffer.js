@@ -1,3 +1,23 @@
+// ==UserScript==
+// @name         scannerActif
+// @namespace    8b0ef798a263ec53add8d477a9f69680
+// @include     https://code.jquery.com/jquery-3.1.1.min.js
+// @updateURL   https://openuserjs.org/src/libs/mandalorien/sniffer.js
+// @downloadURL https://openuserjs.org/src/libs/mandalorien/sniffer.js
+// @version      0.0.2
+// @description  Permet de scanner la galaxy et de vérifier qui est actif
+// @author       Yoruichi
+// @match        https://*.ogame.gameforge.com/game/index.php?page=galaxy*
+// @grant          GM_getValue
+// @grant          GM_setValue
+// @grant          GM_xmlhttpRequest
+// ==/UserScript==
+
+
+var VersionReel = '0.0.2'; // Reel
+var Version = VersionReel.split('-')[0]; // MaJ
+var www = "";
+
 $( document ).ready(function()
 {
 	function $_GET(param)
